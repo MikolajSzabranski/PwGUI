@@ -11,13 +11,14 @@ public class UpDown extends Thread {
     private static int current = 0;
     private static int toService = 5; //liczba przejazdów do serwisowania
 
-    public UpDown(int id, Queue qu, int travelTime, int serviceTime, int holdOn) {
+    public UpDown(int id, Queue qu, int travelTime, int serviceTime, int holdOn, int capacity) {
         this.id = id;
         this.qu = qu;
         this.holdOn = holdOn;
         this.serviceTime = serviceTime;
         this.travelTime = travelTime;
-        this.capacity = qu.capacity;
+        //this.capacity = qu.capacity;
+        this.capacity = capacity;
     }
 
     public void run() {

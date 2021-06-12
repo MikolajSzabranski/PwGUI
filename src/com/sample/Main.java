@@ -28,8 +28,9 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        //Parent sample = FXMLLoader.load(getClass().getResource("com/sample/sample.fxml"));
         window = primaryStage;
+
         setUserAgentStylesheet(STYLESHEET_CASPIAN);
         window.setTitle("Symulacja ruchu na stoku narciarskim");
 
@@ -43,7 +44,7 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         button4.setOnAction(this);
 
         VBox layout = new VBox();
-        layout.getChildren().addAll(button1,button2,button3,button4);
+        layout.getChildren().addAll(button1, button2, button3, button4);
         layout.setAlignment(Pos.TOP_LEFT);
 
         Scene scene = new Scene(layout, 700, 600);
@@ -56,14 +57,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     public void handle(ActionEvent actionEvent) {
         if (actionEvent.getSource() == button1) {
             Test.num[0]++;
-        }else
-        if (actionEvent.getSource() == button2) {
+        } else if (actionEvent.getSource() == button2) {
             Test.num[1]++;
-        }else
-        if (actionEvent.getSource() == button3) {
+        } else if (actionEvent.getSource() == button3) {
             Test.num[2]++;
-        }else
-        if (actionEvent.getSource() == button4) {
+        } else if (actionEvent.getSource() == button4) {
             window.close();
         }
     }
