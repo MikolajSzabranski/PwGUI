@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-public class Main extends Application implements EventHandler<ActionEvent> {
+public class Main extends Application implements EventHandler<ActionEvent>  {
 
     public static void main(String[] args) {
         launch(args);
@@ -50,7 +50,6 @@ public class Main extends Application implements EventHandler<ActionEvent> {
         Scene scene = new Scene(layout, 700, 600);
         window.setScene(scene);
         window.show();
-
 
     }
 
