@@ -1,24 +1,24 @@
 package com.Stok;
 
 public class UpDown extends Thread {
-    int id;
-    Queue qu;
-    int travelTime;
-    int capacity;
-    int serviceTime;
-    int holdOn;
+    private Queue qu;
+    private int id;
+    private int travelTime;
+    private int capacity;
+    private int serviceTime;
+    private int holdOn;
+    private int toService;
 
     private static int current = 0;
-    private static int toService = 5; //liczba przejazdów do serwisowania
 
-    public UpDown(int id, Queue qu, int travelTime, int serviceTime, int holdOn, int capacity) {
-        this.id = id;
+    public UpDown(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService) {
         this.qu = qu;
+        this.id = id;
         this.holdOn = holdOn;
         this.serviceTime = serviceTime;
         this.travelTime = travelTime;
-        //this.capacity = qu.capacity;
-        this.capacity = capacity;
+        this.toService = toService;
+        this.capacity = qu.capacity;
     }
 
     public void run() {
@@ -57,6 +57,7 @@ public class UpDown extends Thread {
                 qu.onWay = 0;
             }
             //SERWIS
+            System.out.println("SERWIS");
             try {
                 Thread.sleep(serviceTime);
             } catch (InterruptedException e) {

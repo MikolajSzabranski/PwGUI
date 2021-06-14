@@ -7,7 +7,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Queue {
     int numOfPpl;
     int capacity;
-    int nr;
+    private int nr;
 
     //private static int id = 0 ;
     public Queue(int nr, int numOfPpl, int capacity) {
@@ -18,8 +18,7 @@ public class Queue {
 
     public int onWay = 0;
     private final Lock lock = new ReentrantLock();
-    private final Condition ac = lock.newCondition();
-    //private final Condition person[] = new Condition[numOfPpl];
+    //private final Condition ac = lock.newCondition();
 
     public void run() throws InterruptedException {
         lock.lock();
