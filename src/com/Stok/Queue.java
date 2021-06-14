@@ -11,7 +11,7 @@ public class Queue {
     public int onWay = 0;
 
     private final Lock lock = new ReentrantLock();
-    //private final Condition ac = lock.newCondition();
+    private final Condition ac = lock.newCondition();
     //private static int id = 0 ;
     public Queue(int nr, int numOfPpl, int capacity) {
         this.nr = nr;
@@ -20,17 +20,18 @@ public class Queue {
     }
 
     public void run() throws InterruptedException {
-        lock.lock();
-        try {
-/*            if (numOfPpl > capacity){
-                current = capacity;
-                numOfPpl -= capacity;
-            }else{
-                current=numOfPpl;
-                numOfPpl=0;
-            }*/
-        } finally {
-            lock.unlock();
-        }
+        /*while(true){
+            lock.lock();
+            try {
+                if (onWay == 1){
+                    ac.await();
+                }else{
+                    ac.signal();
+                }
+            } finally {
+                lock.unlock();
+            }
+        }*/
+
     }
 }

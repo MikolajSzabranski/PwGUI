@@ -21,7 +21,7 @@ public class Test {
         }
 
         for (int i = 0; i < numOfObj; i++) {
-            UDM[i] = new UpDown(que[i], i, travelTime[i], serviceTime[i], holdOn[i], toService);
+            UDM[i] = new Ropeway(que[i], i, travelTime[i], serviceTime[i], holdOn[i], toService);
         }
 
         for (int i = 0; i < numOfObj; i++) {
