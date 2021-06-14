@@ -49,8 +49,8 @@ public class Main extends Application implements EventHandler<ActionEvent> {
 
         Scene scene = new Scene(layout, 700, 600);
         window.setScene(scene);
-        window.show();
-        //Test.run();
+        //window.show();
+        Test.run();
     }
 
     @Override
