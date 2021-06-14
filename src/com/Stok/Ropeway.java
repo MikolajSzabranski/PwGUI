@@ -44,6 +44,7 @@ public class Ropeway extends Thread {
                         current = qu.numOfPpl;
                         qu.numOfPpl = 0;
                     }
+
                     //czekanie na odjazd
                     Thread.sleep(holdOn);
                     //jazda w górę
