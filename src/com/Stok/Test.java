@@ -1,7 +1,7 @@
 package com.Stok;
 
 public class Test {
-    public static int num[] = {5, 9, 6};//chętni do wjechania poszczególnymi kolejkami
+    public static int pplInQueue[] = {5, 9, 6};//chętni do wjechania poszczególnymi kolejkami
     public static int capacity[] = {3, 4, 2};//ładowności kolejek
     public static int travelTime[] = {1000, 400, 600};//czas kursu wyciągu
     public static int serviceTime[] = {10000, 12000, 11000};//czas serwisowania wyciągu
@@ -17,7 +17,7 @@ public class Test {
 
         Queue[] que = new Queue[3];
         for (int i = 0; i < numOfObj; i++) {
-            que[i] = new Queue(i, num[i], capacity[i]);
+            que[i] = new Queue(i, pplInQueue[i], capacity[i]);
         }
 
         for (int i = 0; i < numOfObj; i++) {

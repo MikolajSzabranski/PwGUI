@@ -5,18 +5,15 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Ropeway extends Thread {
-    private Queue qu;
-    private int id;
-    private int travelTime;
-    private int capacity;
-    private int serviceTime;
-    private int holdOn;
-    private int toService;
-    private static int current = 0;
+    private final Queue qu;
+    private final int id;
+    private final int travelTime;
+    private final int capacity;
+    private final int serviceTime;
+    private final int holdOn;
+    private final int toService;
 
     private final Lock lock = new ReentrantLock();
-    private final Condition ac = lock.newCondition();
-
     public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService) {
         this.qu = qu;
         this.id = id;
@@ -28,32 +25,26 @@ public class Ropeway extends Thread {
     }
 
     public void run() {
-       /* try {
-            qu.run();
-        } catch (InterruptedException e) {}*/
         while (true) {
             for (int i = 0; i < toService; i++) {
                 lock.lock();
                 try {
-                    qu.run();
+                    //qu.run();
                     //wsiadanie
+                    int current;
                     if (qu.numOfPpl > capacity) {
                         current = capacity;
-                        qu.numOfPpl -= capacity;
+                        qu.numOfPpl -= current;
                     } else {
                         current = qu.numOfPpl;
                         qu.numOfPpl = 0;
                     }
-
                     //czekanie na odjazd
                     Thread.sleep(holdOn);
                     //jazda w górę
                     qu.onWay = 1;
-                        //ac.await();
                     System.out.println("Kolejka " + (id + 1) + "\nOgień na tłoki " + current);
                     Thread.sleep(travelTime);
-                        //ac.signal();
-                    current = 0;
                     //odczekanie i powrót
                     Thread.sleep(holdOn + travelTime);
                 } catch (InterruptedException e) {

@@ -4,14 +4,10 @@ import com.Stok.Test;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Main extends Application implements EventHandler<ActionEvent> {
@@ -56,11 +52,11 @@ public class Main extends Application implements EventHandler<ActionEvent> {
     @Override
     public void handle(ActionEvent actionEvent) {
         if (actionEvent.getSource() == button1) {
-            Test.num[0]++;
+            Test.pplInQueue[0]++;
         } else if (actionEvent.getSource() == button2) {
-            Test.num[1]++;
+            Test.pplInQueue[1]++;
         } else if (actionEvent.getSource() == button3) {
-            Test.num[2]++;
+            Test.pplInQueue[2]++;
         } else if (actionEvent.getSource() == button4) {
             window.close();
         }
