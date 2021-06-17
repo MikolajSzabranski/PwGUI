@@ -54,7 +54,7 @@ public class Ropeway extends Thread {
                 }
             }
             //SERWIS
-            System.out.println("SERWIS");
+            System.out.println("SERWIS "+(id+1));
             try {
                 Thread.sleep(serviceTime);
             } catch (InterruptedException e) {}
