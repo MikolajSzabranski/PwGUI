@@ -43,7 +43,7 @@ public class Ropeway extends Thread {
                     Thread.sleep(holdOn);
                     //jazda w górę
                     qu.onWay = 1;
-                    System.out.println("Kolejka " + (id + 1) + "\nOgień na tłoki " + current);
+                    //System.out.println("Kolejka " + (id + 1) + "\nOgień na tłoki " + current);
                     Thread.sleep(travelTime);
                     //odczekanie i powrót
                     Thread.sleep(holdOn + travelTime);
@@ -54,7 +54,7 @@ public class Ropeway extends Thread {
                 }
             }
             //SERWIS
-            System.out.println("SERWIS "+(id+1));
+            //System.out.println("SERWIS "+(id+1));
             try {
                 Thread.sleep(serviceTime);
             } catch (InterruptedException e) {}
