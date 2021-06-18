@@ -2,84 +2,75 @@ package com.sample;
 
 import com.Stok.Queue;
 import com.Stok.Ropeway;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class Controller implements Initializable{
-    @FXML
-    private ProgressBar progressBar1;
+public class Controller implements Initializable {
+    Thread[] UDM = new Thread[3];
+    Queue[] que = new Queue[3];
     int pplInQueue[] = {5, 9, 6};//chętni do wjechania poszczególnymi kolejkami
     int capacity[] = {3, 4, 2};//ładowności kolejek
-    int travelTime[] = {1000, 400, 600};//czas kursu wyciągu
+    int travelTime[] = {3000, 2000, 1500};//czas kursu wyciągu
     int serviceTime[] = {10000, 12000, 11000};//czas serwisowania wyciągu
     int holdOn[] = {300, 200, 200};//czas oczekiwania po przyjezdzie
     int toService = 5; //liczba przejazdów do serwisowania
     int numOfObj = 3; //liczba wyciągów
-    class bg_Thread implements Runnable{
-        @Override
-        public void run(){
-            for(int i = 0; i<100; i++){
-                try{
-                    progressBar1.setProgress(i/100.0);
-                    //progressBar2.setProgress(i/100.0);
-                    //progressBar3.setProgress(i/100.0);
-                    Thread.sleep(100);
-                } catch (InterruptedException ie) {}
-            }
-        }
-    }
 
     @FXML
-    private void handleButtonAction(ActionEvent event){
-        Thread th = new Thread(new bg_Thread());
-        th.start();
-    }
+    private ProgressBar progressBar1;
+    @FXML
+    private ProgressBar progressBar2;
+    @FXML
+    private ProgressBar progressBar3;
+    @FXML
+    private Label label1 = new Label(Integer.toString(pplInQueue[0]));
+    @FXML
+    private Label label2 = new Label(Integer.toString(pplInQueue[1]));
+    @FXML
+    private Label label3 = new Label(Integer.toString(pplInQueue[2]));
 
     @Override
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
         progressBar1.setProgress(0.0);
+        progressBar2.setProgress(0.0);
+        progressBar3.setProgress(0.0);
 
-        Thread[] UDM = new Thread[3];
+        Platform.runLater(() -> {
+            que[0] = new Queue(0, pplInQueue[0], capacity[0], label1);
+            que[1] = new Queue(1, pplInQueue[1], capacity[1], label2);
+            que[2] = new Queue(2, pplInQueue[2], capacity[2], label3);
 
-        Queue[] que = new Queue[3];
-        for (int i = 0; i < numOfObj; i++) {
-            que[i] = new Queue(i, pplInQueue[i], capacity[i]);
-        }
+            UDM[0] = new Ropeway(que[0], 0, travelTime[0], serviceTime[0], holdOn[0], toService, progressBar1, label1);
+            UDM[1] = new Ropeway(que[1], 1, travelTime[1], serviceTime[1], holdOn[1], toService, progressBar2, label2);
+            UDM[2] = new Ropeway(que[2], 2, travelTime[2], serviceTime[2], holdOn[2], toService, progressBar3, label3);
 
-        for (int i = 0; i < numOfObj; i++) {
-            UDM[i] = new Ropeway(que[i], i, travelTime[i], serviceTime[i], holdOn[i], toService);
-        }
-
-        for (int i = 0; i < numOfObj; i++) {
-            UDM[i].start();
-        }
-
-        for (int i = 0; i < numOfObj; i++) {
-            try {
-                UDM[i].join();
-            } catch (InterruptedException ie) {}
-        }
+            for (int i = 0; i < numOfObj; i++) {
+                UDM[i].start();
+            }
+        });
     }
 
-    public void bazaSczyt(ActionEvent e){
-        pplInQueue[0]++;
+    public void bazaSczyt(ActionEvent e) {
+        que[0].add();
     }
-    public void bazaSrodek(ActionEvent e){
-        pplInQueue[1]++;
+
+    public void bazaSrodek(ActionEvent e) {
+        que[1].add();
     }
-    public void srodekSczyt(ActionEvent e){
-        pplInQueue[2]++;
+
+    public void srodekSczyt(ActionEvent e) {
+        que[2].add();
     }
-    public void zamknijProgram(ActionEvent e){
-        //Main.stage.close();
-    }
-    public void BaSz(){
+
+    public void BaSz() {
 
     }
 }

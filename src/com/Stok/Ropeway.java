@@ -1,6 +1,7 @@
 package com.Stok;
 
-import java.util.concurrent.locks.Condition;
+import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -12,9 +13,12 @@ public class Ropeway extends Thread {
     private final int serviceTime;
     private final int holdOn;
     private final int toService;
+    ProgressBar progressBar;
+    Label label;
 
     private final Lock lock = new ReentrantLock();
-    public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService) {
+
+    public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService, ProgressBar progressBar, Label label) {
         this.qu = qu;
         this.id = id;
         this.holdOn = holdOn;
@@ -22,6 +26,8 @@ public class Ropeway extends Thread {
         this.travelTime = travelTime;
         this.toService = toService;
         this.capacity = qu.capacity;
+        this.progressBar = progressBar;
+        this.label = label;
     }
 
     public void run() {
@@ -29,7 +35,6 @@ public class Ropeway extends Thread {
             for (int i = 0; i < toService; i++) {
                 lock.lock();
                 try {
-                    //qu.run();
                     //wsiadanie
                     int current;
                     if (qu.numOfPpl > capacity) {
@@ -39,14 +44,28 @@ public class Ropeway extends Thread {
                         current = qu.numOfPpl;
                         qu.numOfPpl = 0;
                     }
+                    qu.update();
                     //czekanie na odjazd
                     Thread.sleep(holdOn);
                     //jazda w górę
+                    for (int j = 0; j < 100; j++) {
+                        try {
+                            progressBar.setProgress(j / 100.0);
+                            Thread.sleep(travelTime / 100);
+                        } catch (InterruptedException ie) {
+                        }
+                    }
                     qu.onWay = 1;
-                    //System.out.println("Kolejka " + (id + 1) + "\nOgień na tłoki " + current);
-                    Thread.sleep(travelTime);
+                    if(id==0)System.out.println(""+qu.numOfPpl);
                     //odczekanie i powrót
                     Thread.sleep(holdOn + travelTime);
+                    for (int j = 100; j > 0; j--) {
+                        try {
+                            progressBar.setProgress(j / 100.0);
+                            Thread.sleep(travelTime / 100);
+                        } catch (InterruptedException ie) {
+                        }
+                    }
                 } catch (InterruptedException e) {
                 } finally {
                     qu.onWay = 0;
@@ -54,10 +73,10 @@ public class Ropeway extends Thread {
                 }
             }
             //SERWIS
-            //System.out.println("SERWIS "+(id+1));
             try {
                 Thread.sleep(serviceTime);
-            } catch (InterruptedException e) {}
+            } catch (InterruptedException e) {
+            }
         }
     }
 }

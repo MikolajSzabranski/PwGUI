@@ -1,36 +1,34 @@
 package com.Stok;
 
+import javafx.scene.control.Label;
+
 import java.util.concurrent.locks.Condition;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class Queue {
-    int numOfPpl;
+    static int numOfPpl;
     int capacity;
     int nr;
     public int onWay = 0;
+    Label lab;
 
     private final Lock lock = new ReentrantLock();
     private final Condition ac = lock.newCondition();
-    //private static int id = 0 ;
-    public Queue(int nr, int numOfPpl, int capacity) {
+
+    public Queue(int nr, int numOfPpl, int capacity, Label lab) {
         this.nr = nr;
         this.numOfPpl = numOfPpl;
         this.capacity = capacity;
+        this.lab=lab;
     }
 
-    public void run() throws InterruptedException {
-        /*while(true){
-            lock.lock();
-            try {
-                if (onWay == 1){
-                    ac.await();
-                }else{
-                    ac.signal();
-                }
-            } finally {
-                lock.unlock();
-            }
-        }*/
+    public void update(){
+        lab.setText(Integer.toString(numOfPpl));
+    }
+
+    public void add(){
+        numOfPpl++;
+        update();
     }
 }
