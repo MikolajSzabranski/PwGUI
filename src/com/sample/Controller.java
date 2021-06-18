@@ -60,9 +60,9 @@ public class Controller implements Initializable {
             que[1] = new Queue(1, pplInQueue[1], capacity[1], label2, label2Move);
             que[2] = new Queue(2, pplInQueue[2], capacity[2], label3, label3Move);
 
-            UDM[0] = new Ropeway(que[0], 0, travelTime[0], serviceTime[0], holdOn[0], toService, progressBar1, label1, label1Move);
-            UDM[1] = new Ropeway(que[1], 1, travelTime[1], serviceTime[1], holdOn[1], toService, progressBar2, label2, label2Move);
-            UDM[2] = new Ropeway(que[2], 2, travelTime[2], serviceTime[2], holdOn[2], toService, progressBar3, label3, label3Move);
+            UDM[0] = new Ropeway(que[0],  travelTime[0], serviceTime[0], holdOn[0], toService, progressBar1, label1, label1Move);
+            UDM[1] = new Ropeway(que[1],  travelTime[1], serviceTime[1], holdOn[1], toService, progressBar2, label2, label2Move);
+            UDM[2] = new Ropeway(que[2],  travelTime[2], serviceTime[2], holdOn[2], toService, progressBar3, label3, label3Move);
             Arrays.stream(UDM).forEach(ropeway -> ropeway.setDaemon(true));
 
             for (int i = 0; i < numOfObj; i++) {

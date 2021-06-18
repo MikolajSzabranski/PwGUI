@@ -9,7 +9,6 @@ import java.util.concurrent.locks.ReentrantLock;
 
 public class Ropeway extends Thread {
     private final Queue qu;
-    private final int id;
     private final int travelTime;
     private final int capacity;
     private final int serviceTime;
@@ -23,9 +22,8 @@ public class Ropeway extends Thread {
 
     private final Lock lock = new ReentrantLock();
 
-    public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService, ProgressBar progressBar, Label label, Label labelMove) {
+    public Ropeway(Queue qu, int travelTime, int serviceTime, int holdOn, int toService, ProgressBar progressBar, Label label, Label labelMove) {
         this.qu = qu;
-        this.id = id;
         this.holdOn = holdOn;
         this.serviceTime = serviceTime;
         this.travelTime = travelTime;
