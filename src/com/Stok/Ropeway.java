@@ -2,6 +2,8 @@ package com.Stok;
 
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
+
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -36,15 +38,7 @@ public class Ropeway extends Thread {
                 lock.lock();
                 try {
                     //wsiadanie
-                    int current;
-                    if (qu.numOfPpl > capacity) {
-                        current = capacity;
-                        qu.numOfPpl -= current;
-                    } else {
-                        current = qu.numOfPpl;
-                        qu.numOfPpl = 0;
-                    }
-                    qu.update();
+                    qu.subNumOfPpl(capacity);
                     //czekanie na odjazd
                     Thread.sleep(holdOn);
                     //jazda w górę
@@ -55,10 +49,8 @@ public class Ropeway extends Thread {
                         } catch (InterruptedException ie) {
                         }
                     }
-                    qu.onWay = 1;
-                    if(id==0)System.out.println(""+qu.numOfPpl);
                     //odczekanie i powrót
-                    Thread.sleep(holdOn + travelTime);
+                    Thread.sleep(holdOn);
                     for (int j = 100; j > 0; j--) {
                         try {
                             progressBar.setProgress(j / 100.0);
@@ -68,7 +60,6 @@ public class Ropeway extends Thread {
                     }
                 } catch (InterruptedException e) {
                 } finally {
-                    qu.onWay = 0;
                     lock.unlock();
                 }
             }

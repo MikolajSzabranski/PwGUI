@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Line?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.sample.Controller">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.sample.Controller">
    <children>
       <Button layoutX="42.0" layoutY="52.0" mnemonicParsing="false" onAction="#bazaSczyt" prefHeight="26.0" prefWidth="107.0" text="Baza-szczyt" />
       <Button layoutX="42.0" layoutY="187.0" mnemonicParsing="false" onAction="#bazaSrodek" prefHeight="26.0" prefWidth="107.0" text="Baza-srodek" />
@@ -20,5 +20,8 @@
       <Label fx:id="label1" layoutX="2.0" layoutY="116.0" prefHeight="18.0" prefWidth="40.0" text="Label" />
       <Label fx:id="label2" layoutX="2.0" layoutY="290.0" prefHeight="18.0" prefWidth="40.0" text="Label" />
       <Label fx:id="label3" layoutX="259.0" layoutY="252.0" prefHeight="18.0" prefWidth="40.0" text="Label" />
+      <Label fx:id="label1Move" layoutX="42.0" layoutY="98.0" text="Label" />
+      <Label fx:id="label2Move" layoutX="42.0" layoutY="275.0" text="Label" />
+      <Label fx:id="label3Move" layoutX="302.0" layoutY="234.0" text="Label" />
    </children>
 </AnchorPane>
