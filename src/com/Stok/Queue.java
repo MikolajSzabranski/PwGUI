@@ -1,7 +1,6 @@
 package com.Stok;
 
 import javafx.application.Platform;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.control.Label;
 
 import java.util.concurrent.atomic.AtomicInteger;
@@ -18,7 +17,6 @@ public class Queue {
     Label labMove;
 
     private final Lock lock = new ReentrantLock();
-    private final Condition ac = lock.newCondition();
 
     public Queue(int nr, AtomicInteger numOfPpl, int capacity, Label lab, Label labMove) {
         this.nr = nr;
@@ -31,7 +29,18 @@ public class Queue {
     public void update() {
         Platform.runLater(()->{
             lab.setText(Integer.toString(numOfPpl.get()));
+        });
+    }
+
+    public void update2() {
+        Platform.runLater(()->{
             labMove.setText(Integer.toString(current));
+        });
+    }
+
+    public void service(){
+        Platform.runLater(()->{
+            labMove.setText("SERWIS");
         });
     }
 
@@ -49,5 +58,6 @@ public class Queue {
             numOfPpl.set(0);
         }
         update();
+        update2();
     }
 }

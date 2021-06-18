@@ -1,9 +1,9 @@
 package com.Stok;
 
+import javafx.application.Platform;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
@@ -15,12 +15,15 @@ public class Ropeway extends Thread {
     private final int serviceTime;
     private final int holdOn;
     private final int toService;
+    private double x;
+    private double addLength;
     ProgressBar progressBar;
     Label label;
+    Label labelMove;
 
     private final Lock lock = new ReentrantLock();
 
-    public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService, ProgressBar progressBar, Label label) {
+    public Ropeway(Queue qu, int id, int travelTime, int serviceTime, int holdOn, int toService, ProgressBar progressBar, Label label, Label labelMove) {
         this.qu = qu;
         this.id = id;
         this.holdOn = holdOn;
@@ -30,6 +33,9 @@ public class Ropeway extends Thread {
         this.capacity = qu.capacity;
         this.progressBar = progressBar;
         this.label = label;
+        this.labelMove = labelMove;
+        this.x = labelMove.getLayoutX();
+        this.addLength = (progressBar.getWidth() / 100);
     }
 
     public void run() {
@@ -45,6 +51,7 @@ public class Ropeway extends Thread {
                     for (int j = 0; j < 100; j++) {
                         try {
                             progressBar.setProgress(j / 100.0);
+                            Platform.runLater(()->labelMove.setLayoutX(x+=addLength));
                             Thread.sleep(travelTime / 100);
                         } catch (InterruptedException ie) {
                         }
@@ -54,6 +61,7 @@ public class Ropeway extends Thread {
                     for (int j = 100; j > 0; j--) {
                         try {
                             progressBar.setProgress(j / 100.0);
+                            Platform.runLater(()->labelMove.setLayoutX(x-=addLength));
                             Thread.sleep(travelTime / 100);
                         } catch (InterruptedException ie) {
                         }
@@ -65,7 +73,9 @@ public class Ropeway extends Thread {
             }
             //SERWIS
             try {
+                qu.service();
                 Thread.sleep(serviceTime);
+                qu.update2();
             } catch (InterruptedException e) {
             }
         }
