@@ -55,6 +55,8 @@ public class Ropeway extends Thread {
                         }
                     }
                     //odczekanie i powrót
+                    qu.current = 0;
+                    qu.update2();
                     Thread.sleep(holdOn);
                     for (int j = 100; j > 0; j--) {
                         try {
